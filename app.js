@@ -1,45 +1,48 @@
 const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const mongoose = require('mongoose');
+const session = require('express-session');
 const dotenv = require('dotenv');
-const path = require('path');
+const nodemailerConfig = require('./nodemailerConfig');
 
 // Load environment variables
 dotenv.config();
 
-const app = express();
-
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch(err => console.log(err));
+mongoose.connect(process.env.DB_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log(err));
 
 // Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('public'));
 app.use(session({
-    secret: 'yourSecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
 }));
 
-// Set static folder
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Set EJS as templating engine
+// Set view engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 // Routes
-app.use('/', require('./routes/home'));
-app.use('/admin', require('./routes/admin'));
-app.use('/blog', require('./routes/blog'));
-app.use('/contact', require('./routes/contact'));
-app.use('/quotes', require('./routes/quotes'));
-app.use('/services', require('./routes/services'));
-app.use('/user', require('./routes/user'));
+const homeRoute = require('./routes/home');
+const contactRoute = require('./routes/contact');
+const quoteRoute = require('./routes/quotes');
+const serviceRoute = require('./routes/services');
+const blogRoute = require('./routes/blog');
+const adminRoute = require('./routes/admin');
 
-// Start server
+app.use('/', homeRoute);
+app.use('/contact', contactRoute);
+app.use('/quotes', quoteRoute);
+app.use('/services', serviceRoute);
+app.use('/blog', blogRoute);
+app.use('/admin', adminRoute);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

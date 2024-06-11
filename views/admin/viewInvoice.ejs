@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Invoice</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <div class="container">
+        <h1>Invoice: <%= invoice.client %></h1>
+        <p>Total: <%= invoice.total %></p>
+        <p>Date: <%= invoice.date.toDateString() %></p>
+        <h2>Items</h2>
+        <ul>
+            <% invoice.items.forEach(item => { %>
+            <li><%= item.description %> - <%= item.quantity %> x <%= item.price %></li>
+            <% }) %>
+        </ul>
+        <a href="/admin/invoices" class="btn btn-secondary">Back to Invoices</a>
+    </div>
+    <%- include('../partials/footer') %>
+    <script src="script.js"></script>
+</body>
+</html>

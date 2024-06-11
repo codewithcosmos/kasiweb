@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Invoices</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <%- include('../partials/navbar') %>
+    <div class="container">
+        <h1>Manage Invoices</h1>
+        <a href="/admin/invoices/create" class="btn btn-primary">Create Invoice</a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% invoices.forEach(invoice => { %>
+                <tr>
+                    <td><%= invoice.client %></td>
+                    <td><%= invoice.total %></td>
+                    <td><%= invoice.date.toDateString() %></td>
+                    <td>
+                        <a href="/admin/invoices/<%= invoice._id %>" class="btn btn-secondary">View</a>
+                        <a href="/admin/invoices/edit/<%= invoice._id %>" class="btn btn-warning">Edit</a>
+                        <form action="/admin/invoices/delete/<%= invoice._id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('../partials/footer') %>
+    <script src="script.js"></script>
+</body>
+</html>
