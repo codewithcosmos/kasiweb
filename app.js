@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const mongoUri = process.env.MONGO_URI;
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.send('Hello World, This is my first app');
 });
 
 
