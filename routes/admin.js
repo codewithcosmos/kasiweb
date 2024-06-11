@@ -4,9 +4,6 @@ const Quote = require('../models/Quote');
 const User = require('../models/User');
 const adminController = require('../controllers/adminController');
 
-const express = require('express');
-const adminController = require('../controllers/adminController');
-
 // Dashboard
 router.get('/dashboard', adminController.getDashboard);
 
