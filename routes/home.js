@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const homeController = require('../controllers/homeController');
 
-router.get('/', homeController.getHomePage);
+// Define your routes
+router.get('/', (req, res) => {
+    res.render('home'); // Make sure this matches your view file name
+});
 
+// Export the router
 module.exports = router;
