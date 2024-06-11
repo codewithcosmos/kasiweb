@@ -1,0 +1,26 @@
+<% include ../layout %>
+<section>
+  <h1>Manage Quotes</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Service</th>
+        <th>Message</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% quotes.forEach(quote => { %>
+      <tr>
+        <td><%= quote.name %></td>
+        <td><%= quote.email %></td>
+        <td><%= quote.service %></td>
+        <td><%= quote.message %></td>
+        <td><%= quote.createdAt.toDateString() %></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
