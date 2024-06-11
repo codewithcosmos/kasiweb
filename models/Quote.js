@@ -1,10 +1,18 @@
 const mongoose = require('mongoose');
 
 const quoteSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  service: String,
-  message: String,
+  name: {
+    type: String,
+    required: true
+  },
+  service: {
+    type: String,
+    required: true
+  },
+  message: {
+    type: String,
+    required: true
+  },
   createdAt: {
     type: Date,
     default: Date.now
