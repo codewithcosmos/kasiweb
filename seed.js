@@ -15,49 +15,49 @@ const products = [
         description: 'Professional web design services to create visually appealing and user-friendly websites.',
         price: 5000,
         category: 'Web Design',
-        image: '/images/web-design.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Web+Design'
     },
     {
         name: 'Web Development',
         description: 'Full-stack web development services to build robust and scalable web applications.',
         price: 10000,
         category: 'Web Development',
-        image: '/images/web-development.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Web+Development'
     },
     {
         name: 'Maintenance',
         description: 'Ongoing website maintenance services to ensure your website runs smoothly and securely.',
         price: 1500,
         category: 'Maintenance',
-        image: '/images/maintenance.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Maintenance'
     },
     {
         name: 'Hosting',
         description: 'Reliable web hosting services to keep your website online and accessible at all times.',
-        price: 1500,
+        price: 2000,
         category: 'Hosting',
-        image: '/images/hosting.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Hosting'
     },
     {
         name: 'Domain Registration',
         description: 'Domain registration services to secure your unique web address.',
         price: 200,
         category: 'Domain Registrar',
-        image: '/images/domain-registration.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Domain+Registration'
     },
     {
         name: 'Company Registration',
         description: 'Services to help you register your company legally and efficiently.',
         price: 1200,
         category: 'Company Register',
-        image: '/images/company-registration.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Company+Registration'
     },
     {
         name: 'Graphic Design',
         description: 'Creative graphic design services for branding, marketing materials, and more.',
         price: 2500,
         category: 'Graphic Design',
-        image: '/images/graphic-design.jpg'
+        image: 'https://via.placeholder.com/300x200.png?text=Graphic+Design'
     }
 ];
 
