@@ -14,4 +14,19 @@ const generateQuotePDF = async (quote) => {
   return pdfPath;
 };
 
-module.exports = { generateQuotePDF };
+const generateInvoicePDF = async (invoice) => {
+  const doc = new PDFDocument();
+  const pdfPath = `./public/invoices/invoice_${invoice._id}.pdf`;
+
+  doc.pipe(fs.createWriteStream(pdfPath));
+  doc.text(`Invoice for User: ${invoice.userId}`, { align: 'center' });
+  invoice.products.forEach(product => {
+    doc.text(`Product: ${product.productId.name}, Quantity: ${product.quantity}, Price: ${product.price}`, { align: 'center' });
+  });
+  doc.text(`Total Amount: ${invoice.totalAmount}`, { align: 'center' });
+  doc.end();
+
+  return pdfPath;
+};
+
+module.exports = { generateQuotePDF, generateInvoicePDF };

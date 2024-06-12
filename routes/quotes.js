@@ -4,7 +4,7 @@ const Quote = require('../models/Quote');
 const nodemailer = require('nodemailer');
 const pdfGenerator = require('../utils/pdfGenerator');
 
-router.post('/', async (req, res) => {
+router.post('/create', async (req, res) => {
   const { name, email, service, message } = req.body;
   const newQuote = new Quote({ name, email, service, message });
 
@@ -37,10 +37,10 @@ router.post('/', async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.redirect('/');
+    res.status(201).json({ quote: newQuote, pdfPath });
   } catch (err) {
     console.error(err);
-    res.redirect('/contact');
+    res.status(500).json({ error: 'Failed to create quote' });
   }
 });
 

@@ -16,7 +16,9 @@
                 <h2><%= product.name %></h2>
                 <p><%= product.description %></p>
                 <p>Price: R<%= product.price %></p>
-                <button>Add to Cart</button>
+                <form action="/add-to-cart/<%= product._id %>" method="POST">
+                    <button type="submit">Add to Cart</button>
+                </form>
             </div>
         <% }); %>
     </div>
