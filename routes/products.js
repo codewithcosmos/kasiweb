@@ -14,4 +14,17 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Route to add a new product (optional, you might populate your database initially)
+router.post('/add', async (req, res) => {
+    const { name, description, price, category, image } = req.body;
+    try {
+        const newProduct = new Product({ name, description, price, category, image });
+        await newProduct.save();
+        res.redirect('/products');
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+});
+
 module.exports = router;
