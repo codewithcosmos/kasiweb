@@ -1,12 +1,10 @@
+// app.js
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
 const path = require('path');
-const cartRoutes = require('./routes/cartRoutes');  // Correct path
-const quoteRoutes = require('./routes/quotes');  // Ensure this file exists
-const invoiceRoutes = require('./routes/invoices');  // Ensure this file exists
-const productsRouter = require('./routes/products');  // Ensure this file exists
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 
@@ -45,16 +43,11 @@ app.get('/', (req, res) => {
 });
 
 // Products routes
+const productsRouter = require('./routes/products');
 app.use('/products', productsRouter);
 
 // Cart routes
-app.use('/cart', cartRoutes);
-
-// Quotes routes
-app.use('/quotes', quoteRoutes);
-
-// Invoices routes
-app.use('/invoices', invoiceRoutes);
+app.use(cartRoutes);
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
