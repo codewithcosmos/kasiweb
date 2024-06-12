@@ -14,16 +14,20 @@ const generateQuotePDF = async (quote) => {
   return pdfPath;
 };
 
-const generateInvoicePDF = async (invoice) => {
+const generateInvoicePDF = async (cart) => {
   const doc = new PDFDocument();
-  const pdfPath = `./public/invoices/invoice_${invoice._id}.pdf`;
+  const pdfPath = `./public/invoices/invoice_${cart._id}.pdf`;
 
   doc.pipe(fs.createWriteStream(pdfPath));
-  doc.text(`Invoice for User: ${invoice.userId}`, { align: 'center' });
-  invoice.products.forEach(product => {
-    doc.text(`Product: ${product.productId.name}, Quantity: ${product.quantity}, Price: ${product.price}`, { align: 'center' });
+  doc.text(`Invoice`, { align: 'center' });
+  cart.items.forEach(item => {
+    doc.text(`Product: ${item.productId.name}`, { align: 'left' });
+    doc.text(`Quantity: ${item.quantity}`, { align: 'left' });
+    doc.text(`Price: ${item.productId.price}`, { align: 'left' });
+    doc.text('------------------------------------', { align: 'left' });
   });
-  doc.text(`Total Amount: ${invoice.totalAmount}`, { align: 'center' });
+  doc.text(`Total Quantity: ${cart.totalQuantity}`, { align: 'left' });
+  doc.text(`Total Price: ${cart.totalPrice}`, { align: 'left' });
   doc.end();
 
   return pdfPath;
