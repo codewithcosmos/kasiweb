@@ -1,12 +1,26 @@
-const Quote = require('../models/Quote');
+const Quote = require('../models/quote');
 
-exports.getQuotePage = (req, res) => {
-    res.render('quotes', { title: 'Get a Quote' });
+exports.createQuote = (req, res) => {
+    const { cart } = req.session;
+
+    if (!cart) {
+        return res.status(400).send('Cart is empty');
+    }
+
+    const newQuote = new Quote({
+        items: cart.items,
+        totalQuantity: cart.totalQuantity,
+        totalPrice: cart.totalPrice
+    });
+
+    newQuote.save()
+        .then(quote => {
+            req.session.quoteId = quote._id;
+            res.redirect('/quote/confirmation');
+        })
+        .catch(err => res.status(500).send(err.message));
 };
 
-exports.postQuote = async (req, res) => {
-    const { name, email, service, message } = req.body;
-    const newQuote = new Quote({ name, email, service, message });
-    await newQuote.save();
-    res.redirect('/quotes');
+exports.confirmationPage = (req, res) => {
+    res.render('quoteConfirmation');
 };

@@ -1,37 +1,26 @@
-<!-- views/cart.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <div class="cart-container">
-        <h1>Your Shopping Cart</h1>
-        <% if (cart.totalQuantity > 0) { %>
+    <h1>Shopping Cart</h1>
+    <div class="cart">
+        <% if (cart.items.length > 0) { %>
             <% cart.items.forEach(item => { %>
                 <div class="cart-item">
-                    <img src="<%= item.productId.image %>" alt="<%= item.productId.name %>">
-                    <div class="cart-item-details">
-                        <h2><%= item.productId.name %></h2>
-                        <p>Price: R<%= item.productId.price %></p>
-                    </div>
-                    <div class="cart-item-quantity">
-                        <span>Quantity: <%= item.quantity %></span>
-                    </div>
-                    <div class="cart-item-price">
-                        R<%= item.productId.price * item.quantity %>
-                    </div>
+                    <p>Product ID: <%= item.productId %></p>
+                    <p>Quantity: <%= item.quantity %></p>
                 </div>
             <% }); %>
-            <div class="cart-total">
-                <span>Total Quantity: <%= cart.totalQuantity %></span>
-                <span>Total Price: R<%= cart.totalPrice %></span>
-            </div>
+            <p>Total Quantity: <%= cart.totalQuantity %></p>
+            <p>Total Price: R<%= cart.totalPrice %></p>
+            <a href="/cart/checkout">Proceed to Checkout</a>
         <% } else { %>
-            <p class="cart-empty">Your cart is empty.</p>
+            <p>Your cart is empty</p>
         <% } %>
     </div>
 </body>

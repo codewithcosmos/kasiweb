@@ -1,10 +1,30 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const QuoteSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  service: { type: String, required: true },
-  message: { type: String, required: true },
-}, { timestamps: true });
+const quoteSchema = new Schema({
+    items: [{
+        productId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Product',
+            required: true
+        },
+        quantity: {
+            type: Number,
+            required: true
+        }
+    }],
+    totalQuantity: {
+        type: Number,
+        required: true
+    },
+    totalPrice: {
+        type: Number,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+});
 
-module.exports = mongoose.model('Quote', QuoteSchema);
+module.exports = mongoose.model('Quote', quoteSchema);
