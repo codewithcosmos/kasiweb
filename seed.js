@@ -22,7 +22,7 @@ const products = [
         description: 'Full-stack web development services to build robust and scalable web applications.',
         price: 10000,
         category: 'Web Development',
-        image: 'https://via.placeholder.com/300x200.png?text=Web+Development'
+        image: 
     },
     {
         name: 'Maintenance',
