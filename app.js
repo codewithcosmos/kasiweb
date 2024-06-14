@@ -1,57 +1,44 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 const session = require('express-session');
-const MongoStore = require('connect-mongo');
-// Routes
+const MongoStore = require('connect-mongo')(session);
+const dotenv = require('dotenv');
+dotenv.config();
+
+const productRoutes = require('./routes/products');
 const cartRoutes = require('./routes/cartRoutes');
-const productsRouter = require('./routes/products');
 const adminRoutes = require('./routes/adminRoutes');
 const userRoutes = require('./routes/userRoutes');
-const path = require('path');
-
-dotenv.config();
+const quoteRoutes = require('./routes/quoteRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 
 const app = express();
 
-// Middleware to parse JSON and form data
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// Database connection
+require('./db');
 
-// Middleware to serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-// Set view engine to EJS
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}));
+
 app.set('view engine', 'ejs');
+app.use(express.static('public'));
 
-const port = process.env.PORT || 3000;
-const mongoUri = process.env.MONGO_URI;
-
-if (!mongoUri) {
-    console.error('MongoDB connection string is not defined');
-    process.exit(1); // Exit the application
-}
-
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Failed to connect to MongoDB', err));
-
-// Routes
 app.use('/products', productRoutes);
 app.use('/cart', cartRoutes);
 app.use('/admin', adminRoutes);
-app.use('/user', userRoutes);
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Home', body: '<h1>Welcome to Kasi Websites</h1>' });
-});
+app.use('/users', userRoutes);
+app.use('/quotes', quoteRoutes);
+app.use('/invoices', invoiceRoutes);
 
-// Products routes
-app.use('/products', productsRouter);
-
-// Cart routes
-app.use('/cart', cartRoutes);
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
