@@ -1,3 +1,10 @@
+<% include('../layout', { title: 'Admin Dashboard' }) %>
+
+<h1>Admin Dashboard</h1>
+<p>Welcome, <%= user.username %>!</p>
+<a href="/admin/products">Manage Products</a>
+<a href="/admin/orders">Manage Orders</a>
+<!-- Added above code -->
 const express = require('express');
 const router = express.Router();
 const Quote = require('../models/Quote');

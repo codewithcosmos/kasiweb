@@ -1,11 +1,18 @@
-require('dotenv').config();
 const express = require('express');
-const session = require('express-session');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+// Routes
 const cartRoutes = require('./routes/cartRoutes');
 const productsRouter = require('./routes/products');
-
+const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 const path = require('path');
+
+dotenv.config();
+
 const app = express();
 
 // Middleware to parse JSON and form data
@@ -31,8 +38,12 @@ mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
 // Routes
+app.use('/products', productRoutes);
+app.use('/cart', cartRoutes);
+app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 app.get('/', (req, res) => {
-    res.render('layout', { title: 'Home', body: '<h1>Welcome to Kasi Websites</h1>' });
+    res.render('index', { title: 'Home', body: '<h1>Welcome to Kasi Websites</h1>' });
 });
 
 // Products routes

@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My EJS Page</title>
-    <link rel="stylesheet" href="/styles/styles.css">
-</head>
-<body>
-    <h1>Welcome to Kasiwebsites Co</h1>
-    <p>Current date and time: <%= new Date().toLocaleString() %></p>
-    <%- include('partials/footer') %>
-</body>
-</html>
+<% include('layout', { title: 'Home' }) %>
+
+<h1>Welcome to Kasi Websites</h1>
+<p>Your one-stop solution for web development and digital services.</p>

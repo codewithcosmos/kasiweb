@@ -56,3 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error('Error loading cart:', err));
     }
 });
+// Add your JavaScript functionality for the cart here
+document.addEventListener('DOMContentLoaded', function() {
+    // Example: Load cart items from local storage or server
+    console.log('Cart script loaded');
+});

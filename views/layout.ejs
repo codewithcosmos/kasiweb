@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title> <!--Name of Title -->
-    <!-- Icon image-->
-    <link rel="icon" type="img/png" href="images/kasimu.png">
-<!-- CSS STyeles -->
-    <link rel="stylesheet" href="/styles/styles.css">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <% include('partials/navbar') %>
+    <header>
+        <%- include('partials/navbar') %>
+    </header>
+
     <main>
         <%- body %>
     </main>
-    <% include('partials/footer') %>
+
+    <footer>
+        <%- include('partials/footer') %>
+    </footer>
 </body>
 </html>
