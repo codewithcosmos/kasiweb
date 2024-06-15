@@ -1,16 +1,17 @@
+<!-- views/partials/navbar.ejs -->
 <nav>
     <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/products">Products</a></li>
-        <li><a href="/cart">Cart</a></li>
-        <% if (user && user.isAdmin) { %>
-            <li><a href="/admin/dashboard">Admin Dashboard</a></li>
-        <% } %>
-        <% if (user) { %>
-            <li><a href="/user/logout">Logout</a></li>
-        <% } else { %>
-            <li><a href="/user/login">Login</a></li>
-            <li><a href="/user/signup">Sign Up</a></li>
-        <% } %>
+      <li><a href="/products">Products</a></li>
+      <li><a href="/cart">Cart</a></li>
+      <% if (user && user.isAdmin) { %>
+        <li><a href="/admin/dashboard">Admin Dashboard</a></li>
+      <% } %>
+      <% if (user) { %>
+        <li><a href="/user/logout">Logout</a></li>
+      <% } else { %>
+        <li><a href="/user/login">Login</a></li>
+        <li><a href="/user/signup">Sign Up</a></li>
+      <% } %>
     </ul>
-</nav>
+  </nav>
+  
