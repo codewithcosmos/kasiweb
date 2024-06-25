@@ -1,18 +1,15 @@
-<% include('layout', { title: 'Cart' }) %>
+<!-- views/cart.ejs -->
+<%- include('layout', { title: 'Cart', body: body }) %>
 
 <h1>Shopping Cart</h1>
 <% if (cart.items.length > 0) { %>
     <ul>
         <% cart.items.forEach(item => { %>
             <li>
-                <img src="<%= item.product.imageUrl %>" alt="<%= item.product.name %>">
-                <%= item.product.name %> - Quantity: <%= item.quantity %> - Price: $<%= item.product.price %>
+                <%= item.product.name %> - Quantity: <%= item.quantity %>
             </li>
         <% }) %>
     </ul>
-    <p>Total Price: $<%= cart.totalPrice %></p>
-    <button onclick="location.href='/quote'">Get Quote</button>
-    <button onclick="location.href='/invoice'">Generate Invoice</button>
 <% } else { %>
-    <p>Your cart is empty.</p>
+    <p>Your cart is empty</p>
 <% } %>

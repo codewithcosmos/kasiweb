@@ -1,24 +1,24 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+const router = Router();
 
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
     res.render('home', { title: 'Home' });
 });
 
-router.get('/about', (req, res) => {
+router.get('/about', (_req, res) => {
     res.render('about', { title: 'About' });
 });
 
-router.get('/services', (req, res) => {
+router.get('/services', (_req, res) => {
     res.render('services', { title: 'Services' });
 });
 
-router.get('/contact', (req, res) => {
+router.get('/contact', (_req, res) => {
     res.render('contact', { title: 'Contact' });
 });
 
-router.get('/blog', (req, res) => {
+router.get('/blog', (_req, res) => {
     res.render('blog', { title: 'Blog' });
 });
 
-module.exports = router;
+export default router;

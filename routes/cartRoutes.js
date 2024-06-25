@@ -1,39 +1,33 @@
+// routes/cartRoutes.js
 const express = require('express');
 const router = express.Router();
-const Product = require('../models/Product');
 const Cart = require('../models/Cart');
 
-router.post('/add-to-cart/:productId', async (req, res) => {
-    const productId = req.params.productId;
-    const quantity = parseInt(req.body.quantity, 10);
+router.get('/', async (req, res) => {
+    console.log('Session user:', req.session.user);
+    if (!req.session.user) {
+        return res.status(401).send('Unauthorized');
+    }
 
     try {
-        const product = await Product.findById(productId);
-        if (!product) {
-            return res.status(404).send('Product not found');
-        }
-
-        let cart = req.session.cart || { items: [], totalPrice: 0 };
-
-        const cartItemIndex = cart.items.findIndex(item => item.product._id.toString() === productId);
-        if (cartItemIndex > -1) {
-            cart.items[cartItemIndex].quantity += quantity;
-        } else {
-            cart.items.push({ product, quantity });
-        }
-        cart.totalPrice += product.price * quantity;
-
-        req.session.cart = cart;
-        res.redirect('/cart');
+        const cart = await Cart.findOne({ userId: req.session.user._id });
+        res.render('cart', {
+            title: 'Cart',
+            cart: cart || { items: [] },
+            user: req.session.user,
+            body: `
+                <h1>Shopping Cart</h1>
+                ${cart && cart.items.length > 0 ? 
+                `<ul>
+                    ${cart.items.map(item => `<li>${item.product.name} - Quantity: ${item.quantity}</li>`).join('')}
+                </ul>` : 
+                '<p>Your cart is empty</p>'}
+            `
+        });
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error adding to cart');
+        console.log(err);
+        res.status(500).send('Server Error');
     }
-});
-
-router.get('/', (req, res) => {
-    const cart = req.session.cart || { items: [], totalPrice: 0 };
-    res.render('cart', { cart });
 });
 
 module.exports = router;

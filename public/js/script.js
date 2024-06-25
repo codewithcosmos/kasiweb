@@ -1,31 +1,35 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Function to handle form submission
-    const handleFormSubmit = (form) => {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
+// /public/js/script.js
 
-            const formData = new FormData(form);
-            const actionUrl = form.getAttribute("action");
+// public/js/script.js
 
-            fetch(actionUrl, {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success) {
-                        alert("Form submitted successfully!");
-                        form.reset();
-                    } else {
-                        alert("Error submitting form: " + data.message);
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                    alert("An error occurred while submitting the form.");
-                });
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/products');
+        const products = await response.json();
+        const productList = document.getElementById('product-list');
+
+        products.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product-item');
+            productDiv.innerHTML = `
+                <h2>${product.name}</h2>
+                <p>${product.description}</p>
+                <p>Price: $${product.price}</p>
+                <img src="${product.image}" alt="${product.name}">
+            `;
+            productList.appendChild(productDiv);
         });
-    };
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    }
+});
+
+
+function addToCart(productId) {
+    // Implement add to cart functionality
+    console.log(`Product ${productId} added to cart`);
+}
+
 
     // Apply form submission handler to contact form
     const contactForm = document.querySelector(".contact-form");
